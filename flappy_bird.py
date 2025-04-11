@@ -18,17 +18,17 @@ WIN_WIDTH = 500  # Window width
 WIN_HEIGHT = 800  # Window height
 
 # Load images
-BIRD_IMGS = [
-    pygame.transform.scale2x(pygame.image.load(os.path.join("imgs", "bird1.png"))),
-    pygame.transform.scale2x(pygame.image.load(os.path.join("imgs", "bird2.png"))),
-    pygame.transform.scale2x(pygame.image.load(os.path.join("imgs", "bird3.png"))),
+BIRD_images = [
+    pygame.transform.scale2x(pygame.image.load(os.path.join("images", "bird1.png"))),
+    pygame.transform.scale2x(pygame.image.load(os.path.join("images", "bird2.png"))),
+    pygame.transform.scale2x(pygame.image.load(os.path.join("images", "bird3.png"))),
 ]
-PIPE_IMG = pygame.transform.scale2x(pygame.image.load(os.path.join("imgs", "pipe.png")))
-BASE_IMG = pygame.transform.scale2x(pygame.image.load(os.path.join("imgs", "base.png")))
-BG_IMG = pygame.transform.scale2x(pygame.image.load(os.path.join("imgs", "bg.png")))
+PIPE_IMG = pygame.transform.scale2x(pygame.image.load(os.path.join("images", "pipe.png")))
+BASE_IMG = pygame.transform.scale2x(pygame.image.load(os.path.join("images", "base.png")))
+BG_IMG = pygame.transform.scale2x(pygame.image.load(os.path.join("images", "bg.png")))
 
 class Bird:
-    IMGS = BIRD_IMGS
+    images = BIRD_images
     MAX_ROTATION = 25
     ROT_VEL = 20
     ANIMATION_TIME = 5
@@ -41,7 +41,7 @@ class Bird:
         self.vel = 0  # velocity
         self.height = self.y
         self.img_count = 0
-        self.img = self.IMGS[0]
+        self.img = self.images[0]
 
     def jump(self):
         self.vel = -10.5
@@ -65,9 +65,9 @@ class Bird:
 
     def draw(self, win):  # draw the bird
         self.img_count += 1  # keep track of how many times we have shown an image
-        self.img = self.IMGS[self.img_count // self.ANIMATION_TIME % len(self.IMGS)]  # get the image to show based on the image count using modulo
+        self.img = self.images[self.img_count // self.ANIMATION_TIME % len(self.images)]  # get the image to show based on the image count using modulo
         if self.tilt <= -80:  # if we are nose diving, show the bird with wings straight
-            self.img = self.IMGS[1]
+            self.img = self.images[1]
             self.img_count = self.ANIMATION_TIME * 2
         rotated_image = pygame.transform.rotate(self.img, self.tilt)
         new_rect = rotated_image.get_rect(center=self.img.get_rect(topleft=(self.x, self.y)).center)  # rotate the bird around the center of the image
